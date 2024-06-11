@@ -24,14 +24,18 @@ public class TestEmployee {
                 .thenComparing(Employee::getId));
 
         // 測試排序結果
+        int counter = 1;
+        System.out.println("測試排序結果:");
         for (Employee e : list) {
             System.out.printf
                     (
-                     "ID: %s, salary: %d, commission: %d%n",
+                     "%d -> ID: %s, salary: %d, commission: %d%n",
+                     counter,
                      e.getId(),
                      e.getSalary(),
                      e.getCommission()
                     );
+            counter++;
         }
 
         System.out.println(list);

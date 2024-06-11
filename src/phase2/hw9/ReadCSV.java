@@ -1,36 +1,33 @@
 package phase2.hw9;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 public class ReadCSV {
 
     public static void main(String[] args) {
 
-        try (FileInputStream fis = new FileInputStream("C:\\java\\Employees.csv");
-             InputStreamReader isr = new InputStreamReader(fis, "MS950");
-             BufferedReader br = new BufferedReader(isr)) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\java\\Employee.csv", Charset.forName("MS950")));
+             CSVParser cp = new CSVParser(br, CSVFormat.DEFAULT.withFirstRecordAsHeader())) {
 
-            String line;
-            int sum = 0;
-            int counter = 0;
-            String[] field;
+            int totalSalary = 0;
 
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-                field = line.split(",");
-                if (counter != 0) {
-                    sum += Integer.parseInt
-                            (
-                            field[2].replaceAll("[\"\\s]", "")
-                            + field[3].replaceAll("[\"\\s]", "")
-                            );
-                }
-                counter++;
+            for (CSVRecord cr : cp) {
+                String name = cr.get("姓名");
+                String salary = cr.get("薪水").replaceAll("[\"\\s,]", "");
+
+                System.out.println("姓名: " + name + ", 薪水: " + Integer.parseInt(salary));
+                totalSalary += Integer.parseInt(salary);
             }
-            System.out.println("薪水加總: " + sum);
+
+            System.out.println("薪水加總: " + totalSalary);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

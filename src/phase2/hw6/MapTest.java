@@ -25,8 +25,8 @@ public class MapTest {
         for (int v : map1.values()) {
             sum += v;
         }
-        average = sum / 3;
-        System.out.printf("三人的平均金額: %.1f%n", average);
+        average = sum / map1.size();
+        System.out.printf("實作1: 三人的平均金額 = %.1f%n", average);
 
         //實作2：現在有另一個Map(map2)，請將map2的資料利用迴圈合併到map1(相同id的People，金額必須累加),最後印出map1資料確認
         //提示 Map.containsKey()
@@ -45,7 +45,13 @@ public class MapTest {
             }
         }
 
-        System.out.println(map1);
+        System.out.print("實作2： ");
+
+        for (People p : map1.keySet()) {
+            System.out.printf("ID_%s = %d | ", p.getId(), map1.get(p));
+        }
+
+        System.out.println();
 
         //實作3:現在再有另一個map3，請將map3中的資料利用迴圈再合併到目前map1(相同id的People，金額必須累加),最後印出map1資料確認
         //印出來001應該要有300，002要有400，003要有72，004要有529
@@ -69,6 +75,12 @@ public class MapTest {
             }
         }
 
-        System.out.println(map1);
+        System.out.print("實作3： ");
+
+        for (People p : map1.keySet()) {
+            System.out.printf("ID_%s = %d | ", p.getId(), map1.get(p));
+        }
+
+        System.out.println();
     }
 }
